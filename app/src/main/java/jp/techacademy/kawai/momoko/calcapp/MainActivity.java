@@ -35,9 +35,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
+        double value1 =0;
+        double value2 =0;
+
         //入力値読み取り
-        double value1 = Double.parseDouble(mEditText1.getText().toString());
-        double value2 = Double.parseDouble(mEditText2.getText().toString());
+        if (readValue(mEditText1)){
+            value1 = Double.parseDouble(mEditText1.getText().toString());
+        }
+        else{
+            Toast.makeText(this, "数値を入力してください", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (readValue(mEditText2)) {
+            value2 = Double.parseDouble(mEditText2.getText().toString());
+        }
+        else{
+            Toast.makeText(this, "数値を入力してください", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         //ボタン分岐
         int valOpr = 0;
@@ -61,6 +76,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("VALUE2", value2);
             intent.putExtra("Operator", valOpr);
             startActivity(intent);
+        }
+    }
+
+    //数値かどうか判定
+    private boolean readValue(EditText iEditText){
+        try
+        {
+            double val = Double.parseDouble(iEditText.getText().toString());
+            return true;
+        } catch (NumberFormatException e)
+        {
+            return false;
         }
     }
 }
